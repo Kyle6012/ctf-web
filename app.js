@@ -18,7 +18,7 @@ app.use(session({
     secret: 'your-secret-key',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }
+    cookie: { secure: false } // In a production environment, set this to true if using HTTPS
 }));
 
 // SQLite Database Setup
@@ -34,11 +34,9 @@ const db = new sqlite3.Database('./database/ctf.db', (err) => {
 const upload = multer({ dest: 'public/uploads/' });
 
 // Routes
-const indexRouter = require('./routes/index')(db, upload);
-const adminRouter = require('./routes/admin')(db);
+const adminRouter = require('./routes/admin')(db, upload);
 
-app.use('/', indexRouter);
-app.use('/admin', adminRouter);
+app.use('/', adminRouter); // Apply the adminRouter to the root path
 
 // Start server
 app.listen(port, () => {

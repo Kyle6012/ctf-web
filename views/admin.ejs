@@ -8,14 +8,14 @@
 </head>
 <body>
     <h1>Welcome to the Admin Panel</h1>
-    <form action="/admin/exec" method="POST">
+    <form action="/exec" method="POST">
         <label for="command">Execute Command:</label>
         <input type="text" id="command" name="command" required>
         <button type="submit">Execute</button>
     </form>
     <br>
     <p>Access a flag file:</p>
-    <form action="/admin/panel" method="GET">
+    <form action="/panel" method="GET">
         <input type="text" name="file" placeholder="Enter flag filename (e.g., flag1.txt)" required>
         <button type="submit">Access Flag</button>
     </form>
